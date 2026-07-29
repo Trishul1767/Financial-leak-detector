@@ -17,5 +17,4 @@ An automated financial analysis dashboard that identifies subtle overspending le
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/financial-leak-detector.git](https://github.com/YOUR_USERNAME/financial-leak-detector.git)
-   cd financial-leak-detector
+   git clone https://github.com/Trishul1767/Financial-leak-detector.git cd Financial-leak-detector
