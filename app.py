@@ -70,24 +70,43 @@ def normalize_dataframe(raw_df: pd.DataFrame) -> pd.DataFrame:
         st.stop()
 
     df["amount"] = pd.to_numeric(df["amount"], errors="coerce").abs()
-    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    df["date"] = pd.to_datetime(df["date"], errors="coerce", dayfirst=True)
     return df.dropna(subset=["amount", "date"])
 
 
 # --- Data input -------------------------------------------------------
 with st.sidebar:
     st.header("Data")
-    uploaded_file = st.file_uploader("Upload transactions CSV", type="csv")
+    uploaded_file = st.file_uploader(
+        "Upload transactions CSV or bank statement PDF", type=["csv", "pdf"]
+    )
     st.markdown(
-        "Works with most bank export column names "
-        "(Date/Merchant/Amount, or Txn_Date/Payee/Cost, etc.)"
+        "CSV: works with most bank export column names "
+        "(Date/Merchant/Amount, or Txn_Date/Payee/Cost, etc.)\n\n"
+        "PDF: best-effort parsing of bank statement PDFs. Formats vary "
+        "a lot between banks - if parsing doesn't find your transactions, "
+        "try a CSV export instead."
     )
 
 if uploaded_file is not None:
-    raw_df = pd.read_csv(uploaded_file)
+    if uploaded_file.name.lower().endswith(".pdf"):
+        from pdf_parser import parse_bank_statement_pdf
+
+        raw_df = parse_bank_statement_pdf(uploaded_file)
+        if raw_df.empty:
+            st.error(
+                "Couldn't find recognizable transactions in this PDF. "
+                "Statement layouts vary a lot between banks - try a CSV "
+                "export instead, or a different statement PDF."
+            )
+            st.stop()
+        else:
+            st.success(f"Extracted {len(raw_df)} transactions from the PDF.")
+    else:
+        raw_df = pd.read_csv(uploaded_file)
 else:
     raw_df = pd.read_csv("transactions.csv")
-    st.info("Using built-in sample data. Upload your own CSV in the sidebar to try real data.")
+    st.info("Using built-in sample data. Upload your own CSV or PDF in the sidebar to try real data.")
 
 df = normalize_dataframe(raw_df)
 df = categorize_dataframe(df)
@@ -197,4 +216,3 @@ if api_key:
         summary_text = default_summary
 
 st.write(summary_text)
-
