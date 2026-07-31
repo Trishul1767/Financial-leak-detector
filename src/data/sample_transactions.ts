@@ -1,4 +1,6 @@
-date,merchant,description,amount
+import { Transaction } from '../types';
+
+export const SAMPLE_CSV_TEXT = `date,merchant,description,amount
 2026-05-01,Amazon Prime,Subscription,179
 2026-05-01,Hotstar,Subscription,149
 2026-05-01,ATM Withdrawal,Purchase,663
@@ -162,4 +164,4 @@ date,merchant,description,amount
 2026-07-29,Amazon,Purchase,2999
 2026-07-29,Jio Fiber,Purchase,1048
 2026-07-30,Swiggy Instamart,Purchase,180
-2026-07-30,Local Kirana Store,Purchase,487
+2026-07-30,Local Kirana Store,Purchase,487`;

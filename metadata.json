@@ -1,0 +1,8 @@
+{
+  "name": "Financial Leak Detector",
+  "description": "Find where your money is quietly leaking out with automated leak detection for subscriptions, duplicates, and price creep.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
