@@ -26,9 +26,3 @@ npm run dev
 npm run build
 ```
 
-## Environment Variables
-
-Copy `.env.example` and set your Gemini API key:
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
