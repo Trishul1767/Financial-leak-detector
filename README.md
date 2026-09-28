@@ -1,6 +1,6 @@
 # Leak Detector
 
-An AI-assisted full-stack React & Node.js application that finds where your money is quietly leaking out: forgotten subscriptions, duplicate charges, and silent price increases.
+An AI-assisted full-stack React & Node.js application that finds where your money is quietly leaking out: forgotten subscriptions, duplicate charges, and silent price increases etc.
 
 ## Features & Highlights
 
